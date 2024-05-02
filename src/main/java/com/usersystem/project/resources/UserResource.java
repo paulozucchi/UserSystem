@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.usersystem.project.entities.User;
 import com.usersystem.project.repositories.UserRepository;
 import com.usersystem.project.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -27,7 +29,6 @@ public class UserResource {
 
 	@Autowired
 	private UserRepository userRepository;
-
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){
@@ -45,7 +46,19 @@ public class UserResource {
     @PostMapping(value = "/create")
     public User createUser(@RequestBody User userObject) {
         
-        return userRepository.save(userObject);
+        return userService.insert(userObject);
     }
-    
+
+	@PutMapping(value = "/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User newDataUser) {
+        User oldDataUser = userService.findbyId(id);
+		return userService.updateUser(oldDataUser, newDataUser);
+    }
+
+	@DeleteMapping(value = "/{id}")
+    public User deleteUser(@PathVariable Long id) {
+        User obj = userService.findbyId(id);
+        return userService.delete(obj);
+    }
+
 }
