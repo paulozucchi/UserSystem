@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.usersystem.project.entities.User;
-import com.usersystem.project.repositories.UserRepository;
 import com.usersystem.project.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,9 +25,6 @@ public class UserResource {
     
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll(){

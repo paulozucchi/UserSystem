@@ -1,15 +1,10 @@
 package com.usersystem.project.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.usersystem.project.entities.User;
 import com.usersystem.project.repositories.UserRepository;
