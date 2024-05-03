@@ -21,7 +21,7 @@ public class UserService {
 	
 	public User findbyId(Long id) {
 		Optional<User> obj = userRepository.findById(id);
-		return obj.get();
+		return obj.get();	
 	}
 
 	public User insert(User userObject) {

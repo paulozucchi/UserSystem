@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.usersystem.project.entities.User;
+import com.usersystem.project.resources.exceptions.ResourceNotFoundException;
 import com.usersystem.project.services.UserService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,8 +35,12 @@ public class UserResource {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id){
-		User obj = userService.findbyId(id);
-		return ResponseEntity.ok().body(obj);
+		try {
+			User obj = userService.findbyId(id);
+			return ResponseEntity.ok().body(obj);
+		} catch(Exception e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		}
 	}
 
     @PostMapping(value = "/create")
@@ -45,14 +51,22 @@ public class UserResource {
 
 	@PutMapping(value = "/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newDataUser) {
-        User oldDataUser = userService.findbyId(id);
-		return ResponseEntity.ok().body(userService.updateUser(oldDataUser, newDataUser));
+		try {
+			User oldDataUser = userService.findbyId(id);
+			return ResponseEntity.ok().body(userService.updateUser(oldDataUser, newDataUser));
+		} catch(Exception e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		}
     }
 
 	@DeleteMapping(value = "/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
-        User obj = userService.findbyId(id);
-        return ResponseEntity.ok().body(userService.delete(obj));
+		try {
+			User obj = userService.findbyId(id);
+			return ResponseEntity.ok().body(userService.delete(obj));
+		} catch(Exception e) {
+			throw new ResourceNotFoundException(e.getMessage());
+		}
     }
 
 }
