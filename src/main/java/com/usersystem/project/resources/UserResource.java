@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 @RequestMapping(value="/user")
 public class UserResource {
@@ -40,21 +38,21 @@ public class UserResource {
 	}
 
     @PostMapping(value = "/create")
-    public User createUser(@RequestBody User userObject) {
+    public ResponseEntity<User> createUser(@RequestBody User userObject) {
         
-        return userService.insert(userObject);
+        return ResponseEntity.ok().body(userService.insert(userObject));
     }
 
 	@PutMapping(value = "/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User newDataUser) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User newDataUser) {
         User oldDataUser = userService.findbyId(id);
-		return userService.updateUser(oldDataUser, newDataUser);
+		return ResponseEntity.ok().body(userService.updateUser(oldDataUser, newDataUser));
     }
 
 	@DeleteMapping(value = "/{id}")
-    public User deleteUser(@PathVariable Long id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         User obj = userService.findbyId(id);
-        return userService.delete(obj);
+        return ResponseEntity.ok().body(userService.delete(obj));
     }
 
 }
