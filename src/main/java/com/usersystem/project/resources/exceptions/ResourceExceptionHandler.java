@@ -13,7 +13,7 @@ public class ResourceExceptionHandler {
     
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> resourceNotFound(ResourceNotFoundException ex, WebRequest request) {
-        StandardError errorDetails = new StandardError(new Date(), 404, "Usuário não encontrado", "o usuário requisitado não foi encontrado", "/user/{id}");
+        StandardError errorDetails = new StandardError(new Date(), 404, "Usuário não encontrado", "o usuário requisitado não foi encontrado", "/users/{id}");
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
